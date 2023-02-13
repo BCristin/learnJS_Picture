@@ -1,12 +1,12 @@
 import calcScroll from "./calcScroll";
-// import { validationCheckbox, validationInput } from "./validation";
 
 const modals = () => {
+	let btnPresssed = false;
 	function bindModal(
 		triggerSelector,
 		modalSelector,
 		closeSelector,
-		closeClickOverlay = true
+		destroy = false
 	) {
 		const trigger = document.querySelectorAll(triggerSelector);
 		const modal = document.querySelector(modalSelector);
@@ -16,12 +16,17 @@ const modals = () => {
 		function closeAllModal() {
 			window.forEach((item) => {
 				item.style.display = "none";
+				item.classList.add("animated", "fadeIn");
 			});
 		}
 		trigger.forEach((item) => {
 			item.addEventListener("click", (e) => {
 				if (e.target) {
 					e.preventDefault();
+				}
+				btnPresssed = true;
+				if (destroy) {
+					item.remove();
 				}
 				closeAllModal();
 				modal.style.display = "block";
@@ -37,7 +42,7 @@ const modals = () => {
 			document.body.style.marginRight = `0px`;
 		});
 		modal.addEventListener("click", function (e) {
-			if (e.target === modal && closeClickOverlay) {
+			if (e.target === modal) {
 				closeAllModal();
 				modal.style.display = "none";
 				document.body.style.overflow = "";
@@ -61,14 +66,39 @@ const modals = () => {
 		}, time);
 	}
 
+	function openByScroll(selector) {
+		window.addEventListener("scroll", () => {
+			console.log({
+				"document.documentElement.scrollHeight":
+					document.documentElement.scrollHeight,
+				"document.body.scrollHeight": document.body.scrollHeight,
+				btnPresssed: btnPresssed,
+				"window.pageYOffset": window.pageYOffset,
+				"document.documentElement.clientHeight":
+					document.documentElement.clientHeight,
+			});
+
+			let scrollHeight = Math.max(
+				document.documentElement.scrollHeight,
+				document.body.scrollHeight
+			); // vede marimea pagini , total
+			let scrollPas = window.pageYOffset; // cat scroll s-a facut deja
+			let clientSees = document.documentElement.clientHeight; // ce vede clientul
+			if (!btnPresssed && scrollPas + clientSees >= scrollHeight) {
+				document.querySelector(selector).click();
+			}
+		});
+	}
+
 	bindModal(".button-design", ".popup-design", ".popup-design .popup-close");
 	bindModal(
 		".button-consultation",
 		".popup-consultation",
 		".popup-consultation .popup-close"
 	);
-
-	showModalbyTime(".popup-consultation", 60000);
+	bindModal(".fixed-gift", ".popup-gift", ".popup-gift .popup-close", true);
+	openByScroll(".fixed-gift");
+	showModalbyTime(".popup-consultation", 180000);
 };
 
 export default modals;

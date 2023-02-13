@@ -977,11 +977,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _calcScroll__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./calcScroll */ "./src/js/modules.js/calcScroll.js");
 
- // import { validationCheckbox, validationInput } from "./validation";
+
 
 var modals = function modals() {
+  var btnPresssed = false;
+
   function bindModal(triggerSelector, modalSelector, closeSelector) {
-    var closeClickOverlay = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+    var destroy = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
     var trigger = document.querySelectorAll(triggerSelector);
     var modal = document.querySelector(modalSelector);
     var close = document.querySelector(closeSelector);
@@ -990,6 +992,7 @@ var modals = function modals() {
     function closeAllModal() {
       window.forEach(function (item) {
         item.style.display = "none";
+        item.classList.add("animated", "fadeIn");
       });
     }
 
@@ -997,6 +1000,12 @@ var modals = function modals() {
       item.addEventListener("click", function (e) {
         if (e.target) {
           e.preventDefault();
+        }
+
+        btnPresssed = true;
+
+        if (destroy) {
+          item.remove();
         }
 
         closeAllModal();
@@ -1012,7 +1021,7 @@ var modals = function modals() {
       document.body.style.marginRight = "0px";
     });
     modal.addEventListener("click", function (e) {
-      if (e.target === modal && closeClickOverlay) {
+      if (e.target === modal) {
         closeAllModal();
         modal.style.display = "none";
         document.body.style.overflow = "";
@@ -1038,9 +1047,32 @@ var modals = function modals() {
     }, time);
   }
 
+  function openByScroll(selector) {
+    window.addEventListener("scroll", function () {
+      console.log({
+        "document.documentElement.scrollHeight": document.documentElement.scrollHeight,
+        "document.body.scrollHeight": document.body.scrollHeight,
+        btnPresssed: btnPresssed,
+        "window.pageYOffset": window.pageYOffset,
+        "document.documentElement.clientHeight": document.documentElement.clientHeight
+      });
+      var scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight); // vede marimea pagini , total
+
+      var scrollPas = window.pageYOffset; // cat scroll s-a facut deja
+
+      var clientSees = document.documentElement.clientHeight; // ce vede clientul
+
+      if (!btnPresssed && scrollPas + clientSees >= scrollHeight) {
+        document.querySelector(selector).click();
+      }
+    });
+  }
+
   bindModal(".button-design", ".popup-design", ".popup-design .popup-close");
   bindModal(".button-consultation", ".popup-consultation", ".popup-consultation .popup-close");
-  showModalbyTime(".popup-consultation", 60000);
+  bindModal(".fixed-gift", ".popup-gift", ".popup-gift .popup-close", true);
+  openByScroll(".fixed-gift");
+  showModalbyTime(".popup-consultation", 180000);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
