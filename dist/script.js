@@ -931,11 +931,15 @@ module.exports = g;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_js_modals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules.js/modals */ "./src/js/modules.js/modals.js");
+/* harmony import */ var _modules_js_sliders__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules.js/sliders */ "./src/js/modules.js/sliders.js");
+
 
 window.addEventListener("DOMContentLoaded", function () {
   "use strict";
 
   Object(_modules_js_modals__WEBPACK_IMPORTED_MODULE_0__["default"])();
+  Object(_modules_js_sliders__WEBPACK_IMPORTED_MODULE_1__["default"])(".feedback-slider-item", "", ".main-prev-btn", ".main-next-btn");
+  Object(_modules_js_sliders__WEBPACK_IMPORTED_MODULE_1__["default"])(".main-slider-item", "vertical");
 });
 
 /***/ }),
@@ -1049,13 +1053,15 @@ var modals = function modals() {
 
   function openByScroll(selector) {
     window.addEventListener("scroll", function () {
-      console.log({
-        "document.documentElement.scrollHeight": document.documentElement.scrollHeight,
-        "document.body.scrollHeight": document.body.scrollHeight,
-        btnPresssed: btnPresssed,
-        "window.pageYOffset": window.pageYOffset,
-        "document.documentElement.clientHeight": document.documentElement.clientHeight
-      });
+      // console.log({
+      // 	"document.documentElement.scrollHeight":
+      // 		document.documentElement.scrollHeight,
+      // 	"document.body.scrollHeight": document.body.scrollHeight,
+      // 	btnPresssed: btnPresssed,
+      // 	"window.pageYOffset": window.pageYOffset,
+      // 	"document.documentElement.clientHeight":
+      // 		document.documentElement.clientHeight,
+      // });
       var scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight); // vede marimea pagini , total
 
       var scrollPas = window.pageYOffset; // cat scroll s-a facut deja
@@ -1076,6 +1082,88 @@ var modals = function modals() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
+
+/***/ }),
+
+/***/ "./src/js/modules.js/sliders.js":
+/*!**************************************!*\
+  !*** ./src/js/modules.js/sliders.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return sliders; });
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+function sliders(slides, dir, prev, next) {
+  var slideIndex = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
+  var items = document.querySelectorAll(slides); // itemele din slider
+
+  function showSlides(n) {
+    if (n > items.length) {
+      slideIndex = 1;
+    }
+
+    if (n < 1) {
+      slideIndex = items.length;
+    } // scoate toate slidere
+
+
+    items.forEach(function (item) {
+      item.classList.add("animated");
+      item.style.display = "none";
+    }); // adauga sliderul trimis
+
+    items[slideIndex - 1].style.display = "block";
+  }
+
+  showSlides(slideIndex);
+
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+
+  try {
+    var prevBtn = document.querySelector(prev);
+    var nextBtn = document.querySelector(next);
+    prevBtn.addEventListener("click", function () {
+      plusSlides(-1);
+      items[slideIndex - 1].classList.remove("slideInLeft");
+      items[slideIndex - 1].classList.add("slideInRight");
+    });
+    nextBtn.addEventListener("click", function () {
+      plusSlides(1);
+      items[slideIndex - 1].classList.remove("slideInRight");
+      items[slideIndex - 1].classList.add("slideInLeft");
+    });
+  } catch (e) {}
+
+  var paused = false;
+
+  function activateAnimation() {
+    paused = setInterval(function () {
+      plusSlides(1);
+
+      if (dir === "vertical") {
+        items[slideIndex - 1].classList.add("slideInDown");
+      } else {
+        items[slideIndex - 1].classList.remove("slideInRight");
+        items[slideIndex - 1].classList.add("slideInLeft");
+      }
+    }, 5000);
+  }
+
+  activateAnimation();
+  items[0].parentNode.addEventListener("mouseenter", function () {
+    clearInterval(paused);
+  });
+  items[0].parentNode.addEventListener("mouseleave", function () {
+    activateAnimation();
+  });
+}
 
 /***/ })
 

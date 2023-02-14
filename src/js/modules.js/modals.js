@@ -2,12 +2,7 @@ import calcScroll from "./calcScroll";
 
 const modals = () => {
 	let btnPresssed = false;
-	function bindModal(
-		triggerSelector,
-		modalSelector,
-		closeSelector,
-		destroy = false
-	) {
+	function bindModal(triggerSelector, modalSelector, closeSelector, destroy = false) {
 		const trigger = document.querySelectorAll(triggerSelector);
 		const modal = document.querySelector(modalSelector);
 		const close = document.querySelector(closeSelector);
@@ -68,20 +63,17 @@ const modals = () => {
 
 	function openByScroll(selector) {
 		window.addEventListener("scroll", () => {
-			console.log({
-				"document.documentElement.scrollHeight":
-					document.documentElement.scrollHeight,
-				"document.body.scrollHeight": document.body.scrollHeight,
-				btnPresssed: btnPresssed,
-				"window.pageYOffset": window.pageYOffset,
-				"document.documentElement.clientHeight":
-					document.documentElement.clientHeight,
-			});
+			// console.log({
+			// 	"document.documentElement.scrollHeight":
+			// 		document.documentElement.scrollHeight,
+			// 	"document.body.scrollHeight": document.body.scrollHeight,
+			// 	btnPresssed: btnPresssed,
+			// 	"window.pageYOffset": window.pageYOffset,
+			// 	"document.documentElement.clientHeight":
+			// 		document.documentElement.clientHeight,
+			// });
 
-			let scrollHeight = Math.max(
-				document.documentElement.scrollHeight,
-				document.body.scrollHeight
-			); // vede marimea pagini , total
+			let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight); // vede marimea pagini , total
 			let scrollPas = window.pageYOffset; // cat scroll s-a facut deja
 			let clientSees = document.documentElement.clientHeight; // ce vede clientul
 			if (!btnPresssed && scrollPas + clientSees >= scrollHeight) {
@@ -91,11 +83,7 @@ const modals = () => {
 	}
 
 	bindModal(".button-design", ".popup-design", ".popup-design .popup-close");
-	bindModal(
-		".button-consultation",
-		".popup-consultation",
-		".popup-consultation .popup-close"
-	);
+	bindModal(".button-consultation", ".popup-consultation", ".popup-consultation .popup-close");
 	bindModal(".fixed-gift", ".popup-gift", ".popup-gift .popup-close", true);
 	openByScroll(".fixed-gift");
 	showModalbyTime(".popup-consultation", 180000);
