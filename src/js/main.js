@@ -1,6 +1,8 @@
-import forms from "./modules.js/forms";
-import modals from "./modules.js/modals";
-import sliders from "./modules.js/sliders";
+import checkTextInputs from "./modules/checkTextInputs";
+import forms from "./modules/forms";
+import mask from "./modules/mask";
+import modals from "./modules/modals";
+import sliders from "./modules/sliders";
 
 window.addEventListener("DOMContentLoaded", () => {
 	"use strict";
@@ -8,4 +10,7 @@ window.addEventListener("DOMContentLoaded", () => {
 	sliders(".feedback-slider-item", "", ".main-prev-btn", ".main-next-btn");
 	sliders(".main-slider-item", "vertical");
 	forms();
+	mask("[name='phone']");
+	checkTextInputs("[name='name']");
+	checkTextInputs("[name='message']");
 });
