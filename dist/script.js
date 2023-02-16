@@ -4546,6 +4546,11 @@ function forms() {
         statusMessageDiv.appendChild(textMessage);
       }, 400);
       var formData = new FormData(item);
+
+      if (item.classList.contains("calc_form")) {
+        formData.append("price", document.querySelector(".calc-price").innerHTML);
+      }
+
       var api; //cauta .popup-design la parinti
 
       item.closest(".popup-design") || item.classList.contains("calc_form") ? api = path.designer : api = path.question;

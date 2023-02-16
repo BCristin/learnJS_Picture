@@ -3,7 +3,6 @@ const postData = async (url, data) => {
 		method: "POST",
 		body: data,
 	});
-
 	return await res.text();
 };
 

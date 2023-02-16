@@ -46,6 +46,11 @@ export default function forms() {
 			}, 400);
 
 			const formData = new FormData(item);
+
+			if (item.classList.contains("calc_form")) {
+				formData.append("price", document.querySelector(".calc-price").innerHTML);
+			}
+
 			let api;
 			//cauta .popup-design la parinti
 			item.closest(".popup-design") || item.classList.contains("calc_form") ? (api = path.designer) : (api = path.question);

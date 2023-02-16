@@ -88,7 +88,7 @@
                <div class=file_upload>
                   <button type=button>Загрузить фотографию</button>
                   <div>Файл не выбран</div>
-                  <input type=file name=upload>
+                  <input type=file accept="image/*" name=upload>
                </div>
                <p class=email>E-mail: <a href=mailto:info@kartiny.art>info@kartiny.art</a></p>
             </div>
@@ -241,16 +241,16 @@
                   <div class=file_upload>
                      <button type=button>Загрузить фотографию</button>
                      <div>Файл не выбран</div>
-                     <input type=file name=upload>
+                     <input type=file accept="image/*" name=upload>
                   </div>
-                  <select id=size>
+                  <select id=size name="size">
                      <option value="">Выберите размер картины</option>
                      <option value="500">40x50</option>
                      <option value="1000">50x70</option>
                      <option value="1500">70x70</option>
                      <option value="2000"> 70x100</option>
                   </select>
-                  <select id=material>
+                  <select id=material name="material">
                      <option value="">Выберите материал картины</option>
                      <option value="1"
                         title="Изящный, позволяет легко создавать текстуру, подходит для декоративных картин маслом.">
@@ -262,14 +262,14 @@
                         натурального
                         хлопка</option>
                   </select>
-                  <select id=options>
+                  <select id=options name="options">
                      <option value="">Дополнительные услуги</option>
                      <option value="1000">Покрытие арт-гелем</option>
                      <option value="2000">Экспресс-изготовление</option>
                      <option value="500">Доставка готовых работ </option>
                   </select>
-                  <input type="text" class="promocode" placeholder="Введите ваш промокод">
-                  <div class=calc-price>Для расчета нужно выбрать размер картины и материал картины</div>
+                  <input type="text" class="promocode" name="promocode" placeholder="Введите ваш промокод">
+                  <div class=calc-price name="calc">Для расчета нужно выбрать размер картины и материал картины</div>
                   <button class="button button-order">Быстрый заказ</button>
                </form>
             </div>
@@ -737,7 +737,7 @@
                <div class=file_upload>
                   <button type=button>Загрузить фотографию</button>
                   <div>Файл не выбран</div>
-                  <input type=file name=upload>
+                  <input type=file accept="image/*" name=upload>
                </div>
                <div class=main-form>
                   <div class=form>
