@@ -27,7 +27,8 @@ const mask = (selector) => {
 			// return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a;
 			// console.log(a);
 			if (/[_\d]/.test(a) && i < val.length) {
-				return val.charAt(i++);
+				// .test() returneaza true daca a contine
+				return val.charAt(i++); // charAt returneaza valaoare indexului trimis , gen "STAS".charAt(2) returneaza A
 			} else {
 				if (i >= val.length) {
 					return "";
@@ -38,7 +39,7 @@ const mask = (selector) => {
 		});
 
 		if (event.type === "blur") {
-			if (this.value.length == 2) {
+			if (this.value.length == 5) {
 				this.value = "";
 			}
 		} else {

@@ -1,3 +1,5 @@
+import { postData } from "../services/requests";
+
 export default function forms() {
 	const form = document.querySelectorAll("form");
 	const input = document.querySelectorAll("input");
@@ -11,14 +13,6 @@ export default function forms() {
 		fail: "assets/img/fail.png",
 	};
 	const path = { designer: "assets/server.php", question: "assets/question.php" };
-
-	const postData = async (url, data) => {
-		let res = await fetch(url, {
-			method: "POST",
-			body: data,
-		});
-		return await res.text();
-	};
 
 	const clearInputs = () => {
 		input.forEach((item) => {
