@@ -4410,9 +4410,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_mask__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/mask */ "./src/js/modules/mask.js");
 /* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/modals */ "./src/js/modules/modals.js");
 /* harmony import */ var _modules_pictureSize__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/pictureSize */ "./src/js/modules/pictureSize.js");
-/* harmony import */ var _modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/showMoreStyles */ "./src/js/modules/showMoreStyles.js");
-/* harmony import */ var _modules_showMoreStylesServer__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/showMoreStylesServer */ "./src/js/modules/showMoreStylesServer.js");
-/* harmony import */ var _modules_sliders__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/sliders */ "./src/js/modules/sliders.js");
+/* harmony import */ var _modules_scrolling__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/scrolling */ "./src/js/modules/scrolling.js");
+/* harmony import */ var _modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/showMoreStyles */ "./src/js/modules/showMoreStyles.js");
+/* harmony import */ var _modules_showMoreStylesServer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/showMoreStylesServer */ "./src/js/modules/showMoreStylesServer.js");
+/* harmony import */ var _modules_sliders__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/sliders */ "./src/js/modules/sliders.js");
+
 
 
 
@@ -4429,20 +4431,22 @@ window.addEventListener("DOMContentLoaded", function () {
   "use strict";
 
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_7__["default"])();
-  Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_11__["default"])(".feedback-slider-item", "", ".main-prev-btn", ".main-next-btn");
-  Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_11__["default"])(".main-slider-item", "vertical");
+  Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_12__["default"])(".feedback-slider-item", "", ".main-prev-btn", ".main-next-btn");
+  Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_12__["default"])(".main-slider-item", "vertical");
   Object(_modules_forms__WEBPACK_IMPORTED_MODULE_5__["default"])();
   Object(_modules_mask__WEBPACK_IMPORTED_MODULE_6__["default"])("[name='phone']");
   Object(_modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_3__["default"])("[name='name']");
   Object(_modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_3__["default"])("[name='message']"); // showMoreStyles(".button-styles", ".styles-2");
 
-  Object(_modules_showMoreStylesServer__WEBPACK_IMPORTED_MODULE_10__["default"])(".button-styles", "#styles .row");
+  Object(_modules_showMoreStylesServer__WEBPACK_IMPORTED_MODULE_11__["default"])(".button-styles", "#styles .row");
   Object(_modules_calc__WEBPACK_IMPORTED_MODULE_2__["default"])("#size", "#material", "#options", ".promocode", ".calc-price");
   Object(_modules_filter__WEBPACK_IMPORTED_MODULE_4__["default"])();
   Object(_modules_pictureSize__WEBPACK_IMPORTED_MODULE_8__["default"])(".sizes-block"); // accordion(".accordion-heading", ".accordion-block");
 
   Object(_modules_accordion__WEBPACK_IMPORTED_MODULE_0__["accordion2"])(".accordion-heading");
-  Object(_modules_burger__WEBPACK_IMPORTED_MODULE_1__["default"])(".burger-menu", ".burger");
+  Object(_modules_burger__WEBPACK_IMPORTED_MODULE_1__["default"])(".burger-menu", ".burger"); // scrolling();
+
+  Object(_modules_scrolling__WEBPACK_IMPORTED_MODULE_9__["scroll2"])();
 });
 
 /***/ }),
@@ -5059,6 +5063,165 @@ function pictureSize(imgSelector) {
   blocks.forEach(function (block) {
     block.addEventListener("mouseout", function () {
       return hideImg(block);
+    });
+  });
+}
+
+/***/ }),
+
+/***/ "./src/js/modules/scrolling.js":
+/*!*************************************!*\
+  !*** ./src/js/modules/scrolling.js ***!
+  \*************************************/
+/*! exports provided: default, scroll2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return scroll; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scroll2", function() { return scroll2; });
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.string.replace */ "./node_modules/core-js/modules/es.string.replace.js");
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function scroll() {
+  //#region  //?adaug elementele in pagina
+  var up = document.createElement("div");
+  up.innerHTML = "\n   <a href=\"#up\" class=\"pageup\"><svg class=\"up\" viewBox=\"0 0 26 26\" fill=\"#fff\" xmlns=\"http://www.w3.org/2000/svg\">\n   <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M26 0H0V26H26V0ZM4.6593 17.7519L13.1233 10.33L21.5873 17.7519L22.9059 16.2481L13.7826 8.24813L13.1233 7.67L12.464 8.24813L3.3407 16.2481L4.6593 17.7519Z\" fill=\"black\"/></svg></a>";
+  document.body.append(up);
+  var style = document.createElement("style");
+  style.innerHTML = ".pageup {opacity: 0;width: 26px ;height: 26px;position: fixed;bottom: 100px;\n      right: 5%;z-index: 30;background-color: #fff;cursor: pointer;border: 1px solid white;transition: 1s all;}";
+  document.head.appendChild(style);
+  document.querySelector("header").setAttribute("id", "up"); //#endregion
+  // afiseaza butonul dupa 1000 px scroll si il scoate pana la 1000
+
+  var upE = document.querySelector(".pageup");
+  window.addEventListener("scroll", function () {
+    if (document.documentElement.scrollTop > 1000) {
+      upE.classList.add("animated", "fadeIn");
+      upE.classList.remove("fadeOut");
+    } else {
+      upE.classList.add("fadeOut");
+      upE.classList.remove("fadeIn");
+    }
+  });
+  var element = document.documentElement;
+  var body = document.body;
+  var allLinkId = document.querySelectorAll("[href]");
+  allLinkId.forEach(function (item) {
+    item.addEventListener("click", function (e) {
+      var scrollTop = Math.round(body.scrollTop || element.scrollTop);
+
+      if (this.hash !== "") {
+        // daca exista # rezulta true
+        e.preventDefault();
+        var hashElement = document.querySelector(this.hash);
+        var hashElementTop = 0;
+
+        while (hashElement.offsetParent) {
+          // offsetParent arata elementul parinte <body>
+          hashElementTop += hashElement.offsetTop; //offsetTop arata cati px sunt pana la top de la obiect
+
+          hashElement = hashElement.offsetParent;
+        }
+
+        hashElementTop = Math.round(hashElementTop);
+        smoothScroll(scrollTop, hashElementTop, this.hash);
+      }
+    });
+  });
+
+  var smoothScroll = function smoothScroll(from, to, hash) {
+    var timeInterval = 1;
+    var prevScrollTop, speed;
+
+    if (to > from) {
+      speed = 20;
+    } else {
+      speed = -20;
+    }
+
+    var move = setInterval(function () {
+      var scrollTop = Math.round(body.scrollTop || element.scrollTop);
+
+      if (prevScrollTop === scrollTop || to > from && scrollTop >= to || to < from && scrollTop <= to) {
+        clearInterval(move);
+        history.replaceState(history.state, document.title, location.href.replace(/#.*$/g, "")
+        /*+ hash*/
+        );
+      } else {
+        body.scrollTop += speed;
+        element.scrollTop += speed;
+        prevScrollTop = scrollTop;
+      }
+    }, timeInterval);
+  }; // upE.addEventListener("click", function (e) {
+  // 	e.preventDefault();
+  // 	const scrollToTop = document.documentElement.scrollTop;
+  // 	const interval = setInterval(() => {
+  // 		if (document.documentElement.scrollTop <= 0) {
+  // 			clearInterval(interval);
+  // 		} else {
+  // 			document.documentElement.scrollTop += -10;
+  // 			console.log(document.documentElement.scrollTop);
+  // 		}
+  // 	}, 1);
+  // });
+
+}
+
+function creaeBtn() {
+  //#region  //?adaug elementele in pagina
+  var up = document.createElement("div");
+  up.innerHTML = "\n<a href=\"#up\" class=\"pageup\"><svg class=\"up\" viewBox=\"0 0 26 26\" fill=\"#fff\" xmlns=\"http://www.w3.org/2000/svg\">\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M26 0H0V26H26V0ZM4.6593 17.7519L13.1233 10.33L21.5873 17.7519L22.9059 16.2481L13.7826 8.24813L13.1233 7.67L12.464 8.24813L3.3407 16.2481L4.6593 17.7519Z\" fill=\"black\"/></svg></a>";
+  document.body.append(up);
+  var style = document.createElement("style");
+  style.innerHTML = ".pageup {opacity: 0;width: 26px ;height: 26px;position: fixed;bottom: 100px;\n   right: 5%;z-index: 30;background-color: #fff;cursor: pointer;border: 1px solid white;transition: 1s all;}";
+  document.head.appendChild(style);
+  document.querySelector("header").setAttribute("id", "up"); //#endregion
+}
+
+function scroll2() {
+  creaeBtn(); // afiseaza butonul dupa 1000 px scroll si il scoate pana la 1000
+
+  var upE = document.querySelector(".pageup");
+  window.addEventListener("scroll", function () {
+    if (document.documentElement.scrollTop > 1000) {
+      upE.classList.add("animated", "fadeIn");
+      upE.classList.remove("fadeOut");
+    } else {
+      upE.classList.add("fadeOut");
+      upE.classList.remove("fadeIn");
+    }
+  });
+  var links = document.querySelectorAll("[href^=\"#\"]");
+  var speed = 0.2;
+  links.forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      var widthTop = document.documentElement.scrollTop;
+      var hash = this.hash;
+      var toBlock = document.querySelector(hash).getBoundingClientRect().top;
+      var start = null;
+      requestAnimationFrame(step);
+
+      function step(time) {
+        if (start === null) {
+          start = time;
+        }
+
+        var progress = time - start;
+        var r = toBlock < 0 ? Math.max(widthTop - progress / speed, widthTop + toBlock) : Math.min(widthTop + progress / speed, widthTop + toBlock);
+        document.documentElement.scrollTo(0, r);
+
+        if (r != widthTop + toBlock) {
+          requestAnimationFrame(step);
+        } else {
+          location.hash = hash;
+        }
+      }
     });
   });
 }

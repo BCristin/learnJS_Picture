@@ -7,6 +7,7 @@ import forms from "./modules/forms";
 import mask from "./modules/mask";
 import modals from "./modules/modals";
 import pictureSize from "./modules/pictureSize";
+import scrolling, { scroll2 } from "./modules/scrolling";
 import showMoreStyles from "./modules/showMoreStyles";
 import showMoreStylesServer from "./modules/showMoreStylesServer";
 import sliders from "./modules/sliders";
@@ -28,4 +29,6 @@ window.addEventListener("DOMContentLoaded", () => {
 	// accordion(".accordion-heading", ".accordion-block");
 	accordion2(".accordion-heading");
 	burger(".burger-menu", ".burger");
+	// scrolling();
+	scroll2();
 });
